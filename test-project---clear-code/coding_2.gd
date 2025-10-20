@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
-	position.x = 400
+	position.x = 600
 
 func _process(delta: float):
 	$Sprite2D.rotate(0.1)
