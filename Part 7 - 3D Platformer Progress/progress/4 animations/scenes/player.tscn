@@ -1,0 +1,87 @@
+[gd_scene load_steps=19 format=3 uid="uid://c0r517b53h4pk"]
+
+[ext_resource type="PackedScene" uid="uid://bctcp65yp8t3f" path="res://graphics/characters/godette/godette.glb" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://smjimneai0md" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://bs267qmwsvste" path="res://scenes/camera_controller.tscn" id="3_qhqgy"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tuyoq"]
+animation = &"Hit_A"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_fjrip"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhqgy"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qlg0r"]
+animation = &"Jump_Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dqkch"]
+animation = &"Running_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qlg0r"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tuyoq"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fjrip"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_smehm"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ur7pv"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y4r1p"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d2wvv"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_smehm"]
+states/Idle/node = SubResource("AnimationNodeAnimation_qhqgy")
+states/Idle/position = Vector2(370.2, 106.8)
+states/Jump/node = SubResource("AnimationNodeAnimation_qlg0r")
+states/Jump/position = Vector2(466.2, 234.4)
+states/Running/node = SubResource("AnimationNodeAnimation_dqkch")
+states/Running/position = Vector2(579.8, 107.952)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "Idle", "Running", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "Running", "Idle", SubResource("AnimationNodeStateMachineTransition_fjrip"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_smehm"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_ur7pv"), "Jump", "Running", SubResource("AnimationNodeStateMachineTransition_y4r1p"), "Running", "Jump", SubResource("AnimationNodeStateMachineTransition_d2wvv")]
+graph_offset = Vector2(44, 31)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dqkch"]
+graph_offset = Vector2(-404.292, 70.9911)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_tuyoq")
+nodes/Animation/position = Vector2(-312, 312)
+nodes/HitOneShot/node = SubResource("AnimationNodeOneShot_fjrip")
+nodes/HitOneShot/position = Vector2(-8, 144)
+nodes/MoveStateMachine/node = SubResource("AnimationNodeStateMachine_smehm")
+nodes/MoveStateMachine/position = Vector2(-392, 120)
+nodes/output/position = Vector2(256, 128)
+node_connections = [&"HitOneShot", 0, &"MoveStateMachine", &"HitOneShot", 1, &"Animation", &"output", 0, &"HitOneShot"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_g2els")
+
+[node name="Skin" parent="." instance=ExtResource("1_3vyb7")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_g2els")
+
+[node name="CameraController" parent="." instance=ExtResource("3_qhqgy")]
+transform = Transform3D(1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 1.4, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Skin")
+tree_root = SubResource("AnimationNodeBlendTree_dqkch")
+anim_player = NodePath("../Skin/AnimationPlayer")
+parameters/HitOneShot/active = false
+parameters/HitOneShot/internal_active = false
+parameters/HitOneShot/request = 0
+
+[editable path="Skin"]

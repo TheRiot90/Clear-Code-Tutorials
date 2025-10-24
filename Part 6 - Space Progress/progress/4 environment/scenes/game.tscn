@@ -1,0 +1,135 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcwxdr30dr2ou"]
+
+[ext_resource type="PackedScene" uid="uid://v1jhugwqrbqa" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="Script" uid="uid://bl6yacdng2tbk" path="res://scenes/game.gd" id="1_yqjtg"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_uwrxv"]
+sky_top_color = Color(0.353029, 0.441642, 0.656592, 1)
+sky_horizon_color = Color(0.647635, 0.662038, 0.706775, 1)
+ground_horizon_color = Color(0.647635, 0.662038, 0.706775, 1)
+
+[sub_resource type="Sky" id="Sky_yqjtg"]
+sky_material = SubResource("ProceduralSkyMaterial_uwrxv")
+
+[sub_resource type="Environment" id="Environment_lnu2h"]
+background_mode = 2
+sky = SubResource("Sky_yqjtg")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Shader" id="Shader_yqjtg"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.4.1.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform ivec2 albedo_texture_size;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise_texture;
+uniform float height: hint_range(0.0, 1.5);
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+	float height_sample = texture(noise_texture, UV).r;
+	VERTEX.y += height_sample * height;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_lnu2h"]
+noise_type = 0
+frequency = 0.0055
+fractal_lacunarity = 1.175
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lbhrr"]
+seamless = true
+noise = SubResource("FastNoiseLite_lnu2h")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iywne"]
+render_priority = 0
+shader = SubResource("Shader_yqjtg")
+shader_parameter/albedo = Color(0.788235, 0.576471, 0.372549, 1)
+shader_parameter/albedo_texture_size = Vector2i(0, 0)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 1.0
+shader_parameter/metallic_texture_channel = Vector4(1, 0, 0, 0)
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 0.0
+shader_parameter/uv1_scale = Vector3(1, 1, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_lbhrr")
+shader_parameter/height = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_lnu2h"]
+material = SubResource("ShaderMaterial_iywne")
+size = Vector2(130, 130)
+subdivide_width = 100
+subdivide_depth = 100
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_yqjtg")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lnu2h")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.344478, 0)
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.644, -2, -16.023)
+mesh = SubResource("PlaneMesh_lnu2h")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.990597, -0.101426, 0.0918114, 0.0061382, 0.703368, 0.7108, -0.136671, -0.703553, 0.697377, 0, 6.5, 2.931)
+
+[node name="Projectiles" type="Node3D" parent="."]
+
+[node name="Timers" type="Node" parent="."]
+
+[node name="MeteorTimer" type="Timer" parent="Timers"]
+wait_time = 0.25
+autostart = true
+
+[node name="ObstacleTimer" type="Timer" parent="Timers"]
+wait_time = 2.0
+autostart = true
+
+[connection signal="shoot_laser" from="Player" to="." method="_on_player_shoot_laser"]
+[connection signal="timeout" from="Timers/MeteorTimer" to="." method="_on_meteor_timer_timeout"]
+[connection signal="timeout" from="Timers/ObstacleTimer" to="." method="_on_obstacle_timer_timeout"]

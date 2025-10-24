@@ -1,0 +1,93 @@
+[gd_scene load_steps=16 format=3 uid="uid://btumdbb353x73"]
+
+[ext_resource type="PackedScene" uid="uid://bks0ynvp57mq1" path="res://graphics/characters/skeleton warrior/Skeleton_Warrior.glb" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://cuenjglklmjfx" path="res://scenes/enemy.gd" id="1_md0e3"]
+[ext_resource type="PackedScene" uid="uid://cp757r6txb0j6" path="res://graphics/weapons/sword_1handed.gltf" id="3_4ra3w"]
+[ext_resource type="Texture2D" uid="uid://cbf5176yt1e2d" path="res://graphics/weapons/barbarian_texture.png" id="4_5uy6h"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4w8v"]
+albedo_texture = ExtResource("4_5uy6h")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_md0e3"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ra3w"]
+animation = &"2H_Melee_Attack_Spin"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_5uy6h"]
+fadein_time = 0.2
+fadeout_time = 0.2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7p1mj"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_md0e3"]
+animation = &"Walking_A"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ra3w"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5uy6h"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c4w8v"]
+xfade_time = 0.2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_xwavj"]
+states/Idle/node = SubResource("AnimationNodeAnimation_7p1mj")
+states/Idle/position = Vector2(374.8, 109.8)
+states/Start/position = Vector2(211.6, 110.352)
+states/Walking/node = SubResource("AnimationNodeAnimation_md0e3")
+states/Walking/position = Vector2(540, 110.28)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_4ra3w"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_5uy6h"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_c4w8v")]
+graph_offset = Vector2(96, 51)
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_nenq2"]
+graph_offset = Vector2(-385.206, 94.1719)
+nodes/Animation/node = SubResource("AnimationNodeAnimation_4ra3w")
+nodes/Animation/position = Vector2(-144, 360)
+nodes/AttackOneShot/node = SubResource("AnimationNodeOneShot_5uy6h")
+nodes/AttackOneShot/position = Vector2(144, 192)
+nodes/MoveStateMachine/node = SubResource("AnimationNodeStateMachine_xwavj")
+nodes/MoveStateMachine/position = Vector2(-144, 168)
+node_connections = [&"AttackOneShot", 0, &"MoveStateMachine", &"AttackOneShot", 1, &"Animation", &"output", 0, &"AttackOneShot"]
+
+[node name="Enemy" type="CharacterBody3D"]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_md0e3")
+
+[node name="Skeleton_Warrior" parent="." instance=ExtResource("1_7p1mj")]
+
+[node name="Skeleton_Warrior_Helmet" parent="Skeleton_Warrior/Rig/Skeleton3D" index="0"]
+transform = Transform3D(1, -2.20965e-22, 1.69407e-21, 2.20965e-22, 1, 0, -1.69407e-21, 3.58732e-43, 1, 0, 1.21587, -1.35973e-07)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Skeleton_Warrior/Rig/Skeleton3D" index="10"]
+transform = Transform3D(-0.999999, 4.68393e-07, 4.5731e-07, 3.978e-07, -5.88753e-07, 0.999999, 3.97616e-07, 0.999999, 5.35882e-07, -0.883132, 1.04926, -7.27595e-07)
+bone_name = "handslot.r"
+bone_idx = 13
+
+[node name="sword_1handed2" parent="Skeleton_Warrior/Rig/Skeleton3D/BoneAttachment3D" instance=ExtResource("3_4ra3w")]
+
+[node name="sword_1handed" parent="Skeleton_Warrior/Rig/Skeleton3D/BoneAttachment3D/sword_1handed2" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_c4w8v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_md0e3")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Skeleton_Warrior")
+tree_root = SubResource("AnimationNodeBlendTree_nenq2")
+anim_player = NodePath("../Skeleton_Warrior/AnimationPlayer")
+parameters/AttackOneShot/active = false
+parameters/AttackOneShot/internal_active = false
+parameters/AttackOneShot/request = 0
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
+
+[editable path="Skeleton_Warrior"]
+[editable path="Skeleton_Warrior/Rig/Skeleton3D/BoneAttachment3D/sword_1handed2"]

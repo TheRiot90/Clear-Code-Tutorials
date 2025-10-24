@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7ya4p8gfiad4"]
+
+[ext_resource type="Script" uid="uid://cedu8sr8ju5f1" path="res://scenes/obstacle.gd" id="1_5oy3q"]
+[ext_resource type="PackedScene" uid="uid://ssv350vs4ksk" path="res://graphics/rock.glb" id="2_0drx6"]
+[ext_resource type="PackedScene" uid="uid://bwfhkn6vnlmm3" path="res://graphics/rock_crystals.glb" id="3_bcfqo"]
+[ext_resource type="PackedScene" uid="uid://d2jd0gxab52yd" path="res://graphics/rover.glb" id="4_u4pg3"]
+[ext_resource type="PackedScene" uid="uid://cscut7c0j02ji" path="res://graphics/satelliteDish_large.glb" id="5_kxyuj"]
+[ext_resource type="PackedScene" uid="uid://dslrr1x08jcd1" path="res://graphics/turret_double.glb" id="6_ej62c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c3lg6"]
+size = Vector3(0.486572, 0.436646, 0.67627)
+
+[node name="Obstacle" type="Area3D"]
+collision_mask = 2
+script = ExtResource("1_5oy3q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0667725, 0.209465, -0.0731948)
+shape = SubResource("BoxShape3D_c3lg6")
+
+[node name="Meshes" type="Node3D" parent="."]
+
+[node name="rock2" parent="Meshes" instance=ExtResource("2_0drx6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91571, 0, -1.43599)
+visible = false
+
+[node name="rock_crystals2" parent="Meshes" instance=ExtResource("3_bcfqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9581, 2.38419e-07, -1.43624)
+visible = false
+
+[node name="rover2" parent="Meshes" instance=ExtResource("4_u4pg3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92492, 0, -1.46547)
+visible = false
+
+[node name="satelliteDish_large2" parent="Meshes" instance=ExtResource("5_kxyuj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90416, 0, -1.4956)
+visible = false
+
+[node name="turret_double2" parent="Meshes" instance=ExtResource("6_ej62c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.85261, 0, -1.51364)
+visible = false
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

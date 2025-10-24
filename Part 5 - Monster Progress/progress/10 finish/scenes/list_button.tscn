@@ -1,0 +1,75 @@
+[gd_scene load_steps=10 format=3 uid="uid://ct7x57fq482l"]
+
+[ext_resource type="Texture2D" uid="uid://b1cqyryj4adfv" path="res://graphics/ui/frame_selected.png" id="1_3nech"]
+[ext_resource type="Script" uid="uid://eodbtypw7xc2" path="res://scenes/list_button.gd" id="1_4mtni"]
+[ext_resource type="Texture2D" uid="uid://cbsbocqwdhjn" path="res://graphics/menu sprites/Finsta.png" id="1_oj5gh"]
+[ext_resource type="Texture2D" uid="uid://c2grkj48me8y5" path="res://graphics/ui/frame.png" id="2_xcwsq"]
+[ext_resource type="FontFile" uid="uid://bcek40pkjo1em" path="res://graphics/fonts/PixelOperator-Bold.ttf" id="5_m4og4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5iedn"]
+texture = ExtResource("1_3nech")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_uns7j"]
+texture = ExtResource("1_3nech")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m3bkc"]
+texture = ExtResource("1_3nech")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jgsbf"]
+texture = ExtResource("2_xcwsq")
+texture_margin_left = 20.0
+texture_margin_top = 20.0
+texture_margin_right = 20.0
+texture_margin_bottom = 20.0
+
+[node name="ListButton" type="Button"]
+custom_minimum_size = Vector2(180, 100)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_styles/focus = SubResource("StyleBoxTexture_5iedn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_uns7j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_m3bkc")
+theme_override_styles/normal = SubResource("StyleBoxTexture_jgsbf")
+script = ExtResource("1_4mtni")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("1_oj5gh")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_m4og4")
+theme_override_font_sizes/font_size = 33
+text = "Monster"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

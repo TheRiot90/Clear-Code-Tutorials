@@ -10,10 +10,6 @@ config_version=5
 
 [application]
 
-config/name="Space Shooter - 3D"
+config/name="space shooter 3d"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
-
-[rendering]
-
-renderer/rendering_method="forward_plus"

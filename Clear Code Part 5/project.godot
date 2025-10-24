@@ -14,6 +14,15 @@ config/name="Monster Battle"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://Global/Global.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+
 [rendering]
 
-renderer/rendering_method="forward_plus"
+textures/canvas_textures/default_texture_filter=0

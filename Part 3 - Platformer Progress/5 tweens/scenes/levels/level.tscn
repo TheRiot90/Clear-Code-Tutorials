@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://b310ygobmogr7"]
+
+[ext_resource type="PackedScene" uid="uid://br2muc715er62" path="res://scenes/entities/player.tscn" id="1_377w7"]
+[ext_resource type="Script" uid="uid://wx08aqn8jjkg" path="res://scenes/levels/level.gd" id="1_bovvr"]
+[ext_resource type="Texture2D" uid="uid://umouuttstq53" path="res://icon.svg" id="2_b2cq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ftxyw"]
+size = Vector2(548, 289)
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_bovvr")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(325, 294)
+shape = SubResource("RectangleShape2D_ftxyw")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(238, 243.5)
+scale = Vector2(2.90625, 1.46094)
+texture = ExtResource("2_b2cq8")
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="Player" parent="Entities" instance=ExtResource("1_377w7")]
+position = Vector2(230, 120)
+
+[node name="Bullets" type="Node2D" parent="."]
+
+[connection signal="shoot" from="Entities/Player" to="." method="_on_player_shoot"]

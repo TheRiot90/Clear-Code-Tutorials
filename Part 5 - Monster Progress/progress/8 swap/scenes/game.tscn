@@ -1,0 +1,151 @@
+[gd_scene load_steps=13 format=3 uid="uid://fpnbgrexcgdj"]
+
+[ext_resource type="Script" uid="uid://bps5t0b6tl16f" path="res://scenes/game.gd" id="1_p57ef"]
+[ext_resource type="Texture2D" uid="uid://ckr0isu4oe6rb" path="res://graphics/backgrounds/background1.png" id="1_uwrxv"]
+[ext_resource type="Texture2D" uid="uid://e0jsnv0ayrfj" path="res://graphics/battle sprites/Cleaf.png" id="3_lbhrr"]
+[ext_resource type="Texture2D" uid="uid://dt6ivh5gjtkqa" path="res://graphics/back sprites/Cleaf.png" id="3_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://ctxodn25e1yej" path="res://scenes/input_menu.tscn" id="4_iywne"]
+[ext_resource type="PackedScene" uid="uid://dj6bmjy7lb12k" path="res://scenes/monster_stats.tscn" id="5_iywne"]
+[ext_resource type="Texture2D" uid="uid://46jp6dtde6vq" path="res://graphics/attack effects/claw.png" id="7_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://cyqsyl6yp7fnn" path="res://graphics/battle sprites/Atrox.png" id="8_gee14"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p57ef"]
+atlas = ExtResource("3_lbhrr")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="Animation" id="Animation_u5sy4"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_gee14"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:animation_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gee14"]
+_data = {
+&"RESET": SubResource("Animation_gee14"),
+&"idle": SubResource("Animation_u5sy4")
+}
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p57ef")
+
+[node name="BG" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_uwrxv")
+
+[node name="Monsters" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player" type="TextureRect" parent="Monsters"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.05
+anchor_top = 1.0
+anchor_right = 0.05
+anchor_bottom = 1.0
+grow_vertical = 0
+texture = ExtResource("3_u5sy4")
+
+[node name="Enemy" type="TextureRect" parent="Monsters"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.4
+anchor_right = 0.7
+anchor_bottom = 0.4
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_p57ef")
+
+[node name="InputMenu" parent="." instance=ExtResource("4_iywne")]
+layout_mode = 1
+
+[node name="Stats" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PlayerStats" parent="Stats" instance=ExtResource("5_iywne")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.5
+anchor_right = 0.1
+anchor_bottom = 0.5
+
+[node name="EnemyStats" parent="Stats" instance=ExtResource("5_iywne")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.2
+anchor_right = 0.5
+anchor_bottom = 0.2
+
+[node name="AttackSprite" type="Sprite2D" parent="."]
+position = Vector2(524, 365)
+scale = Vector2(4, 4)
+texture = ExtResource("7_u5sy4")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_gee14")
+}
+autoplay = "idle"
+
+[node name="Atrox" type="Sprite2D" parent="."]
+position = Vector2(1496, 430)
+texture = ExtResource("8_gee14")
+
+[connection signal="selected" from="InputMenu" to="." method="_on_input_menu_selected"]

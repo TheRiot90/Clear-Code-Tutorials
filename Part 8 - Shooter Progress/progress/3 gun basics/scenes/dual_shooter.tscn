@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://beo83ou2cy4pf"]
+
+[ext_resource type="PackedScene" uid="uid://c43hnl8dg5qsc" path="res://scenes/gun.tscn" id="1_amirf"]
+[ext_resource type="PackedScene" uid="uid://dd3oln1ucgqpd" path="res://models/dual-shooter.glb" id="2_7wsxr"]
+[ext_resource type="Texture2D" uid="uid://csut3ovk0uh0b" path="res://sprites/nozzle_burst.png" id="3_1krk6"]
+
+[node name="DualShooter" instance=ExtResource("1_amirf")]
+
+[node name="blaster-repeater" parent="GunMesh" index="0" instance=ExtResource("2_7wsxr")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="NozzleBurst" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.199042, 0.445858, -1.19376)
+modulate = Color(1, 1, 1, 0.494118)
+texture = ExtResource("3_1krk6")
+
+[node name="Sprite3D2" type="Sprite3D" parent="NozzleBurst" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.199799, 0.445858, -1.19376)
+modulate = Color(1, 1, 1, 0.494118)
+texture = ExtResource("3_1krk6")

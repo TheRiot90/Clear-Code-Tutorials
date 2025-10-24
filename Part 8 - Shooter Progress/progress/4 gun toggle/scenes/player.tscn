@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://od4i8uy84kfp"]
+
+[ext_resource type="Script" uid="uid://c7yvlchx6irm6" path="res://scenes/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://cfhuo8e7sk3nx" path="res://sprites/crosshair.png" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://bycjx6tm6ex41" path="res://scenes/blaster.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://beo83ou2cy4pf" path="res://scenes/dual_shooter.tscn" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://cvs2n03ir0b2d" path="res://sprites/blob_shadow.png" id="5_qlg0r"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_3vyb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_u8vuu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, -20)
+collision_mask = 5
+
+[node name="Crosshair" type="Sprite3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.16862)
+texture = ExtResource("2_g2els")
+
+[node name="Guns" type="Node3D" parent="Camera3D"]
+
+[node name="Blaster" parent="Camera3D/Guns" instance=ExtResource("3_qhqgy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.105, -1.25, -1.145)
+visible = false
+max_size = Vector3(0.7, 0.7, 0.7)
+
+[node name="DualShooter" parent="Camera3D/Guns" instance=ExtResource("4_dqkch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15, -1.17, -1.255)
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.0143, 0)
+texture_albedo = ExtResource("5_qlg0r")
