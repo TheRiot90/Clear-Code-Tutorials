@@ -1,16 +1,70 @@
-[gd_scene load_steps=4 format=3 uid="uid://r8e5vdmp0k17"]
+[gd_scene load_steps=9 format=3 uid="uid://r8e5vdmp0k17"]
 
+[ext_resource type="Script" uid="uid://d4bnsp2tcb41t" path="res://scenes/game.gd" id="1_lbhrr"]
 [ext_resource type="Texture2D" uid="uid://doghmovcgeltw" path="res://graphics/map.png" id="1_uwrxv"]
 [ext_resource type="PackedScene" uid="uid://dghd7rii024ea" path="res://scenes/player.tscn" id="2_yqjtg"]
-[ext_resource type="PackedScene" uid="uid://disvdehejs6xw" path="res://scenes/exercise.tscn" id="3_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://6rt6j4h172du" path="res://scenes/Tree.tscn" id="3_lnu2h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
+size = Vector2(20, 658)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lbhrr"]
+size = Vector2(30, 646)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iywne"]
+size = Vector2(400, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(392, 20)
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_lbhrr")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BG" type="Sprite2D" parent="."]
 texture = ExtResource("1_uwrxv")
 
 [node name="Player" parent="." instance=ExtResource("2_yqjtg")]
 position = Vector2(28, 39)
 
-[node name="Exercise" parent="." instance=ExtResource("3_lnu2h")]
-position = Vector2(83, 68)
+[node name="Tree" parent="." instance=ExtResource("3_lnu2h")]
+position = Vector2(115, 224)
+
+[node name="Borders" type="Node2D" parent="."]
+
+[node name="LeftBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(-202, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/LeftBorder"]
+shape = SubResource("RectangleShape2D_lnu2h")
+
+[node name="RightBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(207, 2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/RightBorder"]
+shape = SubResource("RectangleShape2D_lbhrr")
+
+[node name="TopBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(1, -330)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/TopBorder"]
+shape = SubResource("RectangleShape2D_iywne")
+
+[node name="BottomBorder" type="StaticBody2D" parent="Borders"]
+position = Vector2(0, 330)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/BottomBorder"]
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="FinishArea2D" type="Area2D" parent="Borders"]
+position = Vector2(1, -270)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Borders/FinishArea2D"]
+polygon = PackedVector2Array(-188, -45, -190, 73, 188, 72, 188, -45)
+
+[node name="Timer" type="Node" parent="."]
+
+[node name="CarTimer" type="Timer" parent="Timer"]
+wait_time = 4.0
+autostart = true
+
+[connection signal="body_entered" from="Borders/FinishArea2D" to="." method="_on_finish_area_2d_body_entered"]
