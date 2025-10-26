@@ -1,0 +1,42 @@
+Godot - Clear Code Intro to Coding in Godot
+	
+	
+	Part 1 - Learn to Code in Godot
+			
+			Basics of Godot - 1:17
+				- Scenes and Nodes
+						- Scenes -- Container for Nodes. Can be a level. You can tell Godot which one to display
+						- Nodes -- Basic building blocks. Can be Images, timers, sounds, 3D Objects
+						
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			Basics of Coding - 29:19
+			
+			
+			Logic and Variables - 42:56
+			
+			
+			Properties - 1:02:15
+			
+			
+			Boolean Logic - 1:18:50
+			
+			
+			Working with Data - 1:34:41
+			
+			
+			Functions - 1:55:55
