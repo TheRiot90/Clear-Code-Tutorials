@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://b310ygobmogr7"]
+[gd_scene load_steps=21 format=4 uid="uid://b310ygobmogr7"]
 
 [ext_resource type="PackedScene" uid="uid://80votdu4fybm" path="res://scenes/entities/player.tscn" id="1_377w7"]
 [ext_resource type="Script" uid="uid://wx08aqn8jjkg" path="res://scenes/levels/level.gd" id="1_bovvr"]
@@ -3744,6 +3744,12 @@ sources/0 = SubResource("TileSetAtlasSource_mbbpy")
 gradient = SubResource("Gradient_mbbpy")
 fill_from = Vector2(0.5726496, 0.3190883)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4w6o"]
+size = Vector2(113, 96)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbbpy"]
+size = Vector2(66, 96)
+
 [node name="Level" type="Node2D" groups=["drones"]]
 script = ExtResource("1_bovvr")
 
@@ -3784,6 +3790,129 @@ position = Vector2(859, 88)
 [node name="Drone4" parent="Entities" instance=ExtResource("5_urvlt")]
 position = Vector2(862, 104)
 
+[node name="Drone5" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1191, 127)
+
+[node name="Drone6" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1389, 102)
+
+[node name="Drone7" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1430, 139)
+
+[node name="Drone23" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1516, 364)
+
+[node name="Drone24" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1557, 401)
+
+[node name="Drone25" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1815, 359)
+
+[node name="Drone26" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1856, 396)
+
+[node name="Drone27" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2464, 104)
+
+[node name="Drone28" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2505, 141)
+
+[node name="Drone29" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2114, 709)
+
+[node name="Drone30" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2155, 746)
+
+[node name="Drone31" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(335, 725)
+
+[node name="Drone32" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(376, 762)
+
+[node name="Drone8" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1729, 100)
+
+[node name="Drone9" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1766, 144)
+
+[node name="Drone10" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1784, 98)
+
+[node name="Drone11" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2026, 98)
+
+[node name="Drone12" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2063, 142)
+
+[node name="Drone13" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2081, 96)
+
+[node name="Drone14" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2215, 328)
+
+[node name="Drone15" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2252, 372)
+
+[node name="Drone16" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(2270, 326)
+
+[node name="Drone17" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1603, 701)
+
+[node name="Drone18" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1640, 745)
+
+[node name="Drone19" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1658, 699)
+
+[node name="Drone20" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(880, 360)
+
+[node name="Drone21" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(917, 404)
+
+[node name="Drone22" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(935, 358)
+
+[node name="Drone33" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(903, 314)
+
+[node name="Drone34" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(707, 721)
+
+[node name="Drone35" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(744, 765)
+
+[node name="Drone36" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(762, 719)
+
+[node name="Drone37" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(730, 675)
+
+[node name="Drone38" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(323, 344)
+
+[node name="Drone39" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(360, 388)
+
+[node name="Drone40" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(378, 342)
+
+[node name="Drone41" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(346, 298)
+
+[node name="Drone42" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1156, 717)
+
+[node name="Drone43" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1193, 761)
+
+[node name="Drone44" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1211, 715)
+
+[node name="Drone45" parent="Entities" instance=ExtResource("5_urvlt")]
+position = Vector2(1179, 671)
+
 [node name="Bullets" type="Node2D" parent="."]
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
@@ -3796,8 +3925,27 @@ position = Vector2(2686.5, 125)
 scale = Vector2(1.046875, 1.46875)
 texture = SubResource("GradientTexture2D_ouxo3")
 
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(2679.5, 750.50006)
+scale = Vector2(1.7968764, 1.5156285)
+texture = SubResource("GradientTexture2D_ouxo3")
+
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 position = Vector2(320, 88)
 texture = ExtResource("6_d4w6o")
 
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(2677, 736)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(2.5, 13)
+shape = SubResource("RectangleShape2D_d4w6o")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(10, -611)
+shape = SubResource("RectangleShape2D_mbbpy")
+
 [connection signal="shoot" from="Entities/Player" to="." method="_on_player_shoot"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

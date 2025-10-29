@@ -14,3 +14,9 @@ func _on_player_shoot(pos: Vector2, dir: Vector2) -> void:
 	var bullet = bullet_scene.instantiate() as Area2D
 	$Bullets.add_child(bullet)
 	bullet.setup(pos, dir)
+
+
+func _on_area_2d_body_entered(_body: Node2D) -> void:
+	#var game_over = load("res://scenes/game_over.tscn")
+	#game_over = game_over.instantiate()
+	get_tree().change_scene_to_file("res://scenes/game_over.tscn")
