@@ -86,7 +86,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lvif6"]
-radius = 13.0
+radius = 10.049875
 
 [sub_resource type="Animation" id="Animation_lvif6"]
 length = 0.001
@@ -125,7 +125,7 @@ _data = {
 &"drone_light": SubResource("Animation_in55t")
 }
 
-[node name="Drone" type="CharacterBody2D"]
+[node name="Drone" type="CharacterBody2D" groups=["drones"]]
 collision_layer = 4
 collision_mask = 11
 script = ExtResource("1_xcp44")

@@ -3744,7 +3744,7 @@ sources/0 = SubResource("TileSetAtlasSource_mbbpy")
 gradient = SubResource("Gradient_mbbpy")
 fill_from = Vector2(0.5726496, 0.3190883)
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" groups=["drones"]]
 script = ExtResource("1_bovvr")
 
 [node name="Layers" type="Node2D" parent="."]
@@ -3773,7 +3773,7 @@ tile_set = SubResource("TileSet_ouxo3")
 position = Vector2(620, 160)
 
 [node name="Drone" parent="Entities" instance=ExtResource("5_urvlt")]
-position = Vector2(886, 104)
+position = Vector2(488, 124)
 
 [node name="Drone2" parent="Entities" instance=ExtResource("5_urvlt")]
 position = Vector2(882, 82)
