@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=4 uid="uid://bf0yuue48pk6v"]
+[gd_scene load_steps=19 format=4 uid="uid://bf0yuue48pk6v"]
 
 [ext_resource type="Texture2D" uid="uid://baw527j36pxgi" path="res://graphics/tilesets/grass.png" id="1_dt6h4"]
 [ext_resource type="PackedScene" uid="uid://ca106qafnt25o" path="res://scenes/player/player.tscn" id="1_e6yxx"]
+[ext_resource type="Script" uid="uid://dkpxtgih67bcm" path="res://scenes/level/game.gd" id="1_f2w0s"]
 [ext_resource type="Texture2D" uid="uid://b134tjp5ngghx" path="res://graphics/tilesets/water.png" id="1_qhoho"]
 [ext_resource type="Texture2D" uid="uid://c15lysgtp52wu" path="res://graphics/tilesets/soil.png" id="2_qhoho"]
 [ext_resource type="Texture2D" uid="uid://dcwcdle3cjkv6" path="res://graphics/tilesets/hills.png" id="4_fq6ga"]
+[ext_resource type="Texture2D" uid="uid://byfag0kgqavgo" path="res://graphics/tilesets/soil_water.png" id="5_3ny2s"]
 [ext_resource type="PackedScene" uid="uid://doi42nnng73e" path="res://scenes/level/tree.tscn" id="5_qrcxb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fq6ga"]
@@ -106,6 +108,7 @@ texture = ExtResource("1_dt6h4")
 1:1/0/terrains_peering_bit/top_left_corner = 0
 1:1/0/terrains_peering_bit/top_side = 0
 1:1/0/terrains_peering_bit/top_right_corner = 0
+1:1/0/custom_data_0 = true
 2:1/0 = 0
 2:1/0/terrain_set = 0
 2:1/0/terrain = 0
@@ -328,6 +331,7 @@ texture = ExtResource("1_dt6h4")
 0:4/0/terrains_peering_bit/top_left_corner = 0
 0:4/0/terrains_peering_bit/top_side = 0
 0:4/0/terrains_peering_bit/top_right_corner = 0
+0:4/0/custom_data_0 = true
 1:4/0 = 0
 1:4/0/terrain_set = 0
 1:4/0/terrain = 0
@@ -340,6 +344,7 @@ texture = ExtResource("1_dt6h4")
 1:4/0/terrains_peering_bit/top_left_corner = 0
 1:4/0/terrains_peering_bit/top_side = 0
 1:4/0/terrains_peering_bit/top_right_corner = 0
+1:4/0/custom_data_0 = true
 2:4/0 = 0
 2:4/0/terrain_set = 0
 2:4/0/terrain = 0
@@ -352,6 +357,7 @@ texture = ExtResource("1_dt6h4")
 2:4/0/terrains_peering_bit/top_left_corner = 0
 2:4/0/terrains_peering_bit/top_side = 0
 2:4/0/terrains_peering_bit/top_right_corner = 0
+2:4/0/custom_data_0 = true
 3:4/0 = 0
 3:4/0/terrain_set = 0
 3:4/0/terrain = 0
@@ -364,6 +370,7 @@ texture = ExtResource("1_dt6h4")
 3:4/0/terrains_peering_bit/top_left_corner = 0
 3:4/0/terrains_peering_bit/top_side = 0
 3:4/0/terrains_peering_bit/top_right_corner = 0
+3:4/0/custom_data_0 = true
 4:4/0 = 0
 4:4/0/terrain_set = 0
 4:4/0/terrain = 0
@@ -413,6 +420,8 @@ texture = ExtResource("1_dt6h4")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Main"
 terrain_set_0/terrain_0/color = Color(0.8488357, 0, 0.17339858, 1)
+custom_data_layer_0/name = "usable"
+custom_data_layer_0/type = 1
 sources/0 = SubResource("TileSetAtlasSource_qrcxb")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f2w0s"]
@@ -808,6 +817,24 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.730439, 0.15164459, 0.070786886, 1)
 sources/0 = SubResource("TileSetAtlasSource_f2w0s")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ig4jx"]
+texture = ExtResource("5_3ny2s")
+0:0/0 = 0
+0:0/0/terrain_set = 0
+0:0/0/terrain = 0
+1:0/0 = 0
+1:0/0/terrain_set = 0
+1:0/0/terrain = 0
+2:0/0 = 0
+2:0/0/terrain_set = 0
+2:0/0/terrain = 0
+
+[sub_resource type="TileSet" id="TileSet_pn0ym"]
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_ig4jx")
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3ny2s"]
 texture = ExtResource("4_fq6ga")
 0:0/0 = 0
@@ -843,6 +870,7 @@ physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_3ny2s")
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_f2w0s")
 
 [node name="Layers" type="Node2D" parent="."]
 
@@ -856,6 +884,9 @@ tile_set = SubResource("TileSet_fq6ga")
 
 [node name="SoilLayer" type="TileMapLayer" parent="Layers"]
 tile_set = SubResource("TileSet_3ny2s")
+
+[node name="SoilWaterLayer" type="TileMapLayer" parent="Layers"]
+tile_set = SubResource("TileSet_pn0ym")
 
 [node name="HillsLayer" type="TileMapLayer" parent="Layers"]
 tile_map_data = PackedByteArray("AAAKAPj/AAAAAAIAAAALAPj/AAABAAIAAAAMAPj/AAABAAIAAAANAPj/AAABAAIAAAAOAPj/AAABAAIAAAAPAPj/AAABAAIAAAAQAPj/AAADAAIAAAARAPj/AAABAAIAAAASAPj/AAACAAIAAAASAPb/AAACAAEAAAASAPf/AAACAAEAAAAKAPf/AAAAAAEAAAAKAPb/AAAAAAAAAAALAPb/AAABAAAAAAASAPX/AAACAAAAAAANAPX/AAAEAAEAAAAOAPX/AAAEAAEAAAAPAPX/AAAEAAEAAAAQAPX/AAAEAAEAAAARAPX/AAAEAAEAAAAMAPb/AAAEAAEAAAALAPf/AAABAAEAAAAMAPf/AAABAAEAAAANAPf/AAABAAEAAAAOAPf/AAABAAEAAAAPAPf/AAABAAEAAAAQAPf/AAABAAEAAAARAPf/AAABAAEAAAANAPb/AAABAAEAAAAOAPb/AAABAAEAAAAPAPb/AAABAAEAAAAQAPb/AAABAAEAAAARAPb/AAABAAEAAAAMAPX/AAAAAAAAAAAdAP//AAAAAAIAAAAeAP//AAABAAIAAAAfAP//AAADAAIAAAAgAP//AAABAAIAAAAhAP//AAABAAIAAAAiAP//AAABAAIAAAAjAP//AAABAAIAAAAkAP//AAADAAIAAAAlAP//AAABAAIAAAAmAP//AAACAAIAAAAmAP7/AAACAAEAAAAmAP3/AAACAAEAAAAmAPz/AAACAAEAAAAmAPv/AAACAAEAAAAmAPr/AAACAAEAAAAmAPn/AAACAAEAAAAmAPj/AAACAAEAAAAmAPf/AAACAAEAAAAlAPf/AAABAAEAAAAkAPf/AAABAAEAAAAjAPf/AAABAAEAAAAiAPf/AAABAAEAAAAhAPf/AAABAAEAAAAgAPf/AAAAAAEAAAAgAPj/AAAAAAEAAAAgAPn/AAAAAAEAAAAgAPr/AAAAAAEAAAAdAP7/AAAAAAEAAAAdAP3/AAAAAAEAAAAdAPz/AAAAAAAAAAAeAPz/AAABAAAAAAAfAPz/AAABAAAAAAAgAPz/AAAEAAEAAAAgAPv/AAAAAAEAAAAeAP3/AAABAAEAAAAeAP7/AAABAAEAAAAfAP7/AAABAAEAAAAgAP7/AAABAAEAAAAhAP7/AAABAAEAAAAiAP7/AAABAAEAAAAjAP7/AAABAAEAAAAkAP7/AAABAAEAAAAlAP7/AAABAAEAAAAlAP3/AAABAAEAAAAlAPz/AAABAAEAAAAlAPv/AAABAAEAAAAlAPr/AAABAAEAAAAlAPn/AAABAAEAAAAlAPj/AAABAAEAAAAkAPj/AAABAAEAAAAjAPj/AAABAAEAAAAiAPj/AAABAAEAAAAhAPj/AAABAAEAAAAhAPn/AAABAAEAAAAhAPr/AAABAAEAAAAhAPv/AAABAAEAAAAhAPz/AAABAAEAAAAhAP3/AAABAAEAAAAgAP3/AAABAAEAAAAfAP3/AAABAAEAAAAiAP3/AAABAAEAAAAjAP3/AAABAAEAAAAkAP3/AAABAAEAAAAkAPz/AAABAAEAAAAkAPv/AAABAAEAAAAkAPr/AAABAAEAAAAkAPn/AAABAAEAAAAjAPn/AAABAAEAAAAiAPn/AAABAAEAAAAiAPr/AAABAAEAAAAiAPv/AAABAAEAAAAiAPz/AAABAAEAAAAjAPz/AAABAAEAAAAjAPv/AAABAAEAAAAjAPr/AAABAAEAAAAmAPb/AAACAAEAAAAmAPX/AAACAAEAAAAmAPT/AAACAAEAAAAmAPP/AAACAAEAAAAmAPL/AAACAAAAAAAiAPL/AAABAAAAAAAjAPL/AAABAAAAAAAkAPL/AAABAAAAAAAlAPL/AAABAAAAAAAhAPL/AAAAAAAAAAAhAPP/AAAAAAEAAAAhAPT/AAAAAAEAAAAgAPb/AAAAAAEAAAAgAPX/AAAAAAAAAAAhAPX/AAAEAAEAAAAhAPb/AAABAAEAAAAiAPb/AAABAAEAAAAjAPb/AAABAAEAAAAkAPb/AAABAAEAAAAlAPb/AAABAAEAAAAiAPP/AAABAAEAAAAiAPT/AAABAAEAAAAiAPX/AAABAAEAAAAjAPP/AAABAAEAAAAjAPT/AAABAAEAAAAjAPX/AAABAAEAAAAkAPP/AAABAAEAAAAkAPT/AAABAAEAAAAkAPX/AAABAAEAAAAlAPP/AAABAAEAAAAlAPT/AAABAAEAAAAlAPX/AAABAAEAAAA=")
@@ -935,3 +966,5 @@ position = Vector2(96, 72)
 
 [node name="Tree23" parent="Objects" instance=ExtResource("5_qrcxb")]
 position = Vector2(480, -81)
+
+[connection signal="tool_use" from="Objects/Player" to="." method="_on_player_tool_use"]
